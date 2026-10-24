@@ -25,7 +25,7 @@ function Contact() {
       {/* Quick Links */}
       <div className="new-nav-quick-links">
         <h3>Quick Links</h3>
-
+             
         <nav className="new-nav-links">
           <a href="/">Home</a>
           <a href="/menu">Menu</a>
@@ -114,7 +114,25 @@ function Contact() {
 
         <p>Good Food. Good People. Great Memories.</p>
       </div>
-   
+   <div className="ag-footer-bottom">
+        <div className="ag-footer-ornament">
+          ✦ ━ ◆ ━ ✧ ━ ◈ ━ ✦ ━ ◆ ━ ✧ ━ ◈ ━ ✦
+        </div>
+
+        <p>
+          © 2026 <strong>Abbaa Gadaa Restaurant.</strong>
+          {" "}All Rights Reserved.
+        </p>
+
+        <p className="ag-footer-credit">
+          Designed & Developed by
+          <span> Abdisa Siraj Abuni</span>
+        </p>
+
+        <p className="ag-footer-motto">
+          Proudly celebrating Oromo culture and Ethiopian hospitality.
+        </p>
+      </div>
     </header>
   );
 }

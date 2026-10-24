@@ -1,0 +1,146 @@
+.gallery-section {
+  padding: 85px 6%;
+  background: #f8f5e9;
+}
+
+.gallery-heading {
+  max-width: 700px;
+  margin: 0 auto 50px;
+  text-align: center;
+}
+
+.gallery-heading span {
+  color: #14583f;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 3px;
+}
+
+.gallery-heading h2 {
+  color: #103d2e;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(34px, 4vw, 46px);
+  margin: 16px 0;
+}
+
+.gallery-heading p {
+  color: #687168;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.gallery-card {
+  position: relative;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #14583f;
+  box-shadow: 0 8px 24px rgba(16, 61, 46, 0.1);
+  isolation: isolate;
+}
+
+.gallery-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease, opacity 0.4s ease;
+}
+
+.gallery-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(
+    to top,
+    rgba(8, 35, 25, 0.88) 0%,
+    rgba(8, 35, 25, 0.25) 38%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.gallery-card:hover img {
+  transform: scale(1.07);
+}
+
+.gallery-caption {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 35px 22px 22px;
+  color: #fff;
+  pointer-events: none;
+}
+
+.gallery-caption h3 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+@media (max-width: 900px) {
+  .gallery-section {
+    padding: 65px 5%;
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .gallery-card {
+    height: 260px;
+  }
+}
+
+@media (max-width: 520px) {
+  .gallery-section {
+    padding: 50px 18px;
+  }
+
+  .gallery-heading {
+    margin-bottom: 30px;
+  }
+
+  .gallery-heading span {
+    font-size: 10px;
+    letter-spacing: 2px;
+  }
+
+  .gallery-heading p {
+    font-size: 14px;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .gallery-card {
+    height: 260px;
+  }
+
+  .gallery-caption h3 {
+    font-size: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-card img {
+    transition: none;
+  }
+}

@@ -1,44 +1,50 @@
-
+import { Link } from "react-router-dom";
 import logo1 from '../images/logo1.png'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { useCart } from "../context/CartContext";
 function Navbar() {
+  const { cartCount } = useCart();
   return (
 
     <header className="navbar">
       
       {/* Restaurant Logo */}
-      <a href="/" className="logo">
+      <Link to="/" className="logo">
        <img src={logo1} alt="Abbaa Gadaa Restaurant Logo" />
 
         <div className="logo-text">
           <h2>ABBAA GADAA</h2>
           <p>RESTAURANT</p>
         </div>
-      </a>
+      </Link>
 
       {/* Navigation Links */}
-      <nav className="nav-links">
-        <a href="/">Home</a>
-        <a href="/menu">Menu</a>
-        <a href="/about">About</a>
-        <a href="/gallery">Gallery</a>
-        <a href="/contact">Contact</a>
-      </nav>
+      
+<nav className="nav-links">
+  <Link to="/">Home</Link>
+  <Link to="/menu">Menu</Link>
+  <Link to="/about">About</Link>
+  <Link to="/gallery">Gallery</Link>
+  <Link to="/contact">Contact</Link>
+</nav>
+
 
       {/* Right Side Actions */}
       <div className="nav-actions">
         <button className="language-btn" type="button">
-          EN <span>►</span>
+          EN <span><ExpandMoreIcon/></span> OR
         </button>
 
-       <a href="/cart" className="cart-btn">
+     <Link to="/cart" className="cart-btn">
   <AddShoppingCartIcon />
-</a>
+  <span className="cart-count">{cartCount}</span>
+</Link>
 
-        <a href="/contact" className="reserve-btn">
-          Reserve a Table
-          <span>↗</span>
-        </a>
+       <Link to="/contact" className="reserve-btn">
+  Reserve a Table
+  <span>↗</span>
+</Link>
       </div>
     </header>
   );

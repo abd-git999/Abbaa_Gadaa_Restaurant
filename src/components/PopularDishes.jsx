@@ -1,4 +1,5 @@
 
+import { useCart } from "../context/CartContext";
 import { useState } from "react";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import RemoveIcon from "@mui/icons-material/Remove";
@@ -8,6 +9,8 @@ const dishes = [
   {
     id: 1,
     name: "Doro Wat",
+    category: "Lunch",
+    available: false,
     description: "Traditional chicken stew with spices and boiled eggs.",
     price: 250,
     image:
@@ -16,6 +19,8 @@ const dishes = [
   {
     id: 2,
     name: "Tibs",
+    category: "Lunch",
+    available: true,
     description: "Sizzling beef with onions, tomatoes and peppers.",
     price: 220,
     image:
@@ -24,6 +29,8 @@ const dishes = [
   {
     id: 3,
     name: "Misir Wat",
+    category: "Breakfast",
+    available: true,
     description: "Spicy red lentil stew, rich in flavor.",
     price: 180,
     image:
@@ -32,6 +39,8 @@ const dishes = [
   {
     id: 4,
     name: "Shiro",
+    category: "Lunch",
+    available: true,
     description: "A healthy mix of vegetables and legumes.",
     price: 200,
     image:
@@ -40,6 +49,8 @@ const dishes = [
   {
     id: 5,
     name: "Genfo",
+    category: "Breakfast",
+    available: false,
     description: "Traditional barley porridge with butter.",
     price: 160,
     image:
@@ -49,7 +60,22 @@ const dishes = [
 
 function PopularDishes() {
   const [quantities, setQuantities] = useState({});
-  const [cart, setCart] = useState({});
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
+
+  const { addToCart, cartCount } = useCart();
+
+  const filteredDishes = dishes.filter((dish) => {
+    const matchesSearch = dish.name
+      .toLowerCase()
+      .includes(searchTerm.trim().toLowerCase());
+
+    const matchesCategory =
+      selectedCategory === "All" ||
+      dish.category === selectedCategory;
+
+    return matchesSearch && matchesCategory;
+  });
 
   const changeQuantity = (id, amount) => {
     setQuantities((previous) => ({
@@ -58,19 +84,14 @@ function PopularDishes() {
     }));
   };
 
-  const addToCart = (dish) => {
+  const handleAddToCart = (dish) => {
+    if (!dish.available) {
+      return;
+    }
+
     const quantity = quantities[dish.id] || 1;
-
-    setCart((previous) => ({
-      ...previous,
-      [dish.id]: (previous[dish.id] || 0) + quantity,
-    }));
+    addToCart(dish, quantity);
   };
-
-  const cartCount = Object.values(cart).reduce(
-    (total, quantity) => total + quantity,
-    0
-  );
 
   return (
     <section className="popular-dishes" id="menu">
@@ -82,56 +103,120 @@ function PopularDishes() {
         Prepared with love, using traditional recipes and fresh ingredients.
       </p>
 
+      <div className="category-filters">
+        {["All", "Breakfast", "Lunch", "Dinner", "Drinks"].map(
+          (category) => (
+            <button
+              key={category}
+              type="button"
+              className={
+                selectedCategory === category ? "active" : ""
+              }
+              onClick={() => setSelectedCategory(category)}
+            >
+              {category}
+            </button>
+          )
+        )}
+      </div>
+
+      <div className="food-search">
+        <input
+          type="search"
+          placeholder="Search food by name..."
+          value={searchTerm}
+          onChange={(event) => setSearchTerm(event.target.value)}
+          aria-label="Search food by name"
+        />
+
+        {searchTerm && (
+          <button
+            type="button"
+            onClick={() => setSearchTerm("")}
+          >
+            Clear
+          </button>
+        )}
+      </div>
+
       <div className="dish-grid">
-        {dishes.map((dish) => (
-          <article className="dish-card" key={dish.id}>
-            <img src={dish.image} alt={dish.name} />
+        {filteredDishes.length > 0 ? (
+          filteredDishes.map((dish) => (
+            <article className="dish-card" key={dish.id}>
+              <img src={dish.image} alt={dish.name} />
 
-            <div className="dish-info">
-              <h3>{dish.name}</h3>
-              <p>{dish.description}</p>
+              <div className="dish-info">
+                <h3>{dish.name}</h3>
 
-              <strong className="dish-price">
-                ETB {dish.price}
-              </strong>
+                <p
+                  className={
+                    dish.available ? "available" : "unavailable"
+                  }
+                >
+                  {dish.available
+                    ? "Available"
+                    : "Currently unavailable"}
+                </p>
 
-              <div className="dish-actions">
-                <div className="quantity-control">
+                <p>{dish.description}</p>
+
+                <strong className="dish-price">
+                  ETB {dish.price}
+                </strong>
+
+                <div className="dish-actions">
+                  <div className="quantity-control">
+                    <button
+                      type="button"
+                      aria-label={`Decrease ${dish.name} quantity`}
+                      onClick={() => changeQuantity(dish.id, -1)}
+                    >
+                      <RemoveIcon fontSize="small" />
+                    </button>
+
+                    <span>{quantities[dish.id] || 1}</span>
+
+                    <button
+                      type="button"
+                      aria-label={`Increase ${dish.name} quantity`}
+                      onClick={() => changeQuantity(dish.id, 1)}
+                    >
+                      <AddIcon fontSize="small" />
+                    </button>
+                  </div>
+
                   <button
-                    aria-label={`Decrease ${dish.name} quantity`}
-                    onClick={() => changeQuantity(dish.id, -1)}
+                    type="button"
+                    className="add-cart-btn"
+                    disabled={!dish.available}
+                    onClick={() => handleAddToCart(dish)}
+                    aria-label={
+                      dish.available
+                        ? `Add ${dish.name} to cart`
+                        : `${dish.name} is unavailable`
+                    }
                   >
-                    <RemoveIcon fontSize="small" />
-                  </button>
-
-                  <span>{quantities[dish.id] || 1}</span>
-
-                  <button
-                    aria-label={`Increase ${dish.name} quantity`}
-                    onClick={() => changeQuantity(dish.id, 1)}
-                  >
-                    <AddIcon fontSize="small" />
+                    <AddShoppingCartIcon fontSize="small" />
+                    {dish.available
+                      ? "Add to Cart"
+                      : "Unavailable"}
                   </button>
                 </div>
-
-                <button
-                  className="add-cart-btn"
-                  onClick={() => addToCart(dish)}
-                >
-                  <AddShoppingCartIcon fontSize="small" />
-                  Add to Cart
-                </button>
               </div>
-            </div>
-          </article>
-        ))}
+            </article>
+          ))
+        ) : (
+          <p className="no-food-results" role="status">
+            No food found for "{searchTerm}". Try another name.
+          </p>
+        )}
       </div>
 
       <p className="cart-message" aria-live="polite">
         Items in cart: {cartCount}
       </p>
 
-      <button className="full-menu-btn">
+      <button type="button" className="full-menu-btn">
         View Full Menu →
       </button>
     </section>
