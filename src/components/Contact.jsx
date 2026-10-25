@@ -1,20 +1,71 @@
+import logo1 from "../images/logo1.png";
+import { Link } from "react-router-dom";
+import { useLanguage } from "../context/LanguageContext";
 
-import logo1 from '../images/logo1.png';
-import { Link } from 'react-router-dom';
+import FacebookIcon from "@mui/icons-material/Facebook";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import MusicNoteIcon from "@mui/icons-material/MusicNote";
+import YouTubeIcon from "@mui/icons-material/YouTube";
+import CallIcon from "@mui/icons-material/Call";
+import MailIcon from "@mui/icons-material/Mail";
+import LocationPinIcon from "@mui/icons-material/LocationPin";
 
-import FacebookIcon from '@mui/icons-material/Facebook';
-import InstagramIcon from '@mui/icons-material/Instagram';
-import MusicNoteIcon from '@mui/icons-material/MusicNote';
-import YouTubeIcon from '@mui/icons-material/YouTube';
-import CallIcon from '@mui/icons-material/Call';
-import MailIcon from '@mui/icons-material/Mail';
-import LocationPinIcon from '@mui/icons-material/LocationPin';
+const translations = {
+  EN: {
+    quickLinks: "Quick Links",
+    home: "Home",
+    menu: "Menu",
+    about: "About",
+    gallery: "Gallery",
+    contact: "Contact",
+    cart: "Cart",
+    contactUs: "Contact Us",
+    followUs: "Follow Us",
+    tagline: "Good Food. Good People. Great Memories.",
+    rights: "All Rights Reserved.",
+    designed: "Designed & Developed by",
+    motto: "Proudly celebrating Oromo culture and Ethiopian hospitality.",
+  },
+
+  OR: {
+    quickLinks: "Geessituuwwan Ariifachiisaa",
+    home: "Mana",
+    menu: "Baafata Nyaataa",
+    about: "Waa'ee Keenya",
+    gallery: "Suuraa",
+    contact: "Nu Qunnamaa",
+    cart: "Gaarii Nyaataa",
+    contactUs: "Nu Qunnamaa",
+    followUs: "Nu Hordofaa",
+    tagline: "Nyaata Gaarii. Namoota Gaarii. Yaadannoo Gaarii.",
+    rights: "Mirgi Hunduu Seeraan Eegama.",
+    designed: "Kan Qopheessee fi Guddise",
+    motto: "Aadaa Oromoo fi simannaa Itoophiyaa boonsaan kabajna.",
+  },
+
+  "አማ": {
+    quickLinks: "ፈጣን አገናኞች",
+    home: "መነሻ",
+    menu: "ምናሌ",
+    about: "ስለ እኛ",
+    gallery: "ምስሎች",
+    contact: "ያግኙን",
+    cart: "የግዢ ቅርጫት",
+    contactUs: "ያግኙን",
+    followUs: "ይከተሉን",
+    tagline: "ጥሩ ምግብ። ጥሩ ሰዎች። ድንቅ ትዝታዎች።",
+    rights: "መብቶች በሙሉ የተጠበቁ ናቸው።",
+    designed: "የነደፈውና ያበለጸገው",
+    motto: "የኦሮሞ ባህልንና የኢትዮጵያን አቀባበል በኩራት እናከብራለን።",
+  },
+};
 
 function Contact() {
+  const { language } = useLanguage();
+  const t = translations[language] || translations.EN;
+
   return (
     <footer className="new-navbar" id="contact">
-
-      {/* Restaurant Logo */}
       <Link to="/" className="logo">
         <img src={logo1} alt="Abbaa Gadaa Restaurant Logo" />
 
@@ -24,29 +75,24 @@ function Contact() {
         </div>
       </Link>
 
-      {/* Quick Links */}
       <div className="new-nav-quick-links">
-        <h3>Quick Links</h3>
+        <h3>{t.quickLinks}</h3>
 
         <nav className="new-nav-links">
-          <Link to="/">Home</Link>
-          <Link to="/menu">Menu</Link>
-          <Link to="/about">About</Link>
-          <Link to="/gallery">Gallery</Link>
-          <Link to="/contact">Contact</Link>
-          <Link to="/cart">Cart</Link>
+          <Link to="/">{t.home}</Link>
+          <Link to="/menu">{t.menu}</Link>
+          <Link to="/about">{t.about}</Link>
+          <Link to="/gallery">{t.gallery}</Link>
+          <Link to="/contact">{t.contact}</Link>
+          <Link to="/cart">{t.cart}</Link>
         </nav>
       </div>
 
-      {/* Contact Information */}
       <div className="new-nav-contact">
-        <h3>Contact Us</h3>
+        <h3>{t.contactUs}</h3>
 
         <div className="new-nav-actions">
-          <a
-            href="tel:+251969416675"
-            className="CallIcon-btn"
-          >
+          <a href="tel:+251969416675" className="CallIcon-btn">
             <CallIcon />
             <span>+251 969 416 675</span>
           </a>
@@ -61,19 +107,15 @@ function Contact() {
             <span>Bulbula, Oromia, Ethiopia</span>
           </a>
 
-          <a
-            href="mailto:abdisasaba2@gmail.com"
-            className="MailIcon-btn"
-          >
+          <a href="mailto:abdisasaba2@gmail.com" className="MailIcon-btn">
             <MailIcon />
             <span>abdisasaba2@gmail.com</span>
           </a>
         </div>
       </div>
 
-      {/* Social Media */}
       <div className="new-nav-follow">
-        <h3>Follow Us</h3>
+        <h3>{t.followUs}</h3>
 
         <div className="social-icons">
           <a
@@ -113,30 +155,26 @@ function Contact() {
           </a>
         </div>
 
-        <p>Good Food. Good People. Great Memories.</p>
+        <p>{t.tagline}</p>
       </div>
 
-      {/* Footer Bottom */}
       <div className="ag-footer-bottom">
         <div className="ag-footer-ornament">
           ✦ ━ ◆ ━ ✧ ━ ◈ ━ ✦ ━ ◆ ━ ✧ ━ ◈ ━ ✦
         </div>
 
         <p>
-          © 2026 <strong>Abbaa Gadaa Restaurant.</strong>
-          {' '}All Rights Reserved.
+          © 2026 <strong>Abbaa Gadaa Restaurant.</strong>{" "}
+          {t.rights}
         </p>
 
         <p className="ag-footer-credit">
-          Designed &amp; Developed by
+          {t.designed}
           <span> Abdisa Siraj Abuni</span>
         </p>
 
-        <p className="ag-footer-motto">
-          Proudly celebrating Oromo culture and Ethiopian hospitality.
-        </p>
+        <p className="ag-footer-motto">{t.motto}</p>
       </div>
-
     </footer>
   );
 }

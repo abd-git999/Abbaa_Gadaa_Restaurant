@@ -1241,3 +1241,48 @@ a {
     min-width: 0;
   }
 }
+
+/* Language selector */
+.language-select {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  position: relative;
+  cursor: pointer;
+}
+
+.language-select select {
+  appearance: none;
+  -webkit-appearance: none;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 8px 20px 8px 8px;
+}
+
+.language-select svg {
+  position: absolute;
+  right: 2px;
+  pointer-events: none;
+}
+
+.language-select option {
+  background: #fff;
+  color: #14583f;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
