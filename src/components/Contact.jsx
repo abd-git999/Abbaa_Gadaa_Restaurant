@@ -1,5 +1,6 @@
 
 import logo1 from '../images/logo1.png';
+import { Link } from 'react-router-dom';
 
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
@@ -11,28 +12,29 @@ import LocationPinIcon from '@mui/icons-material/LocationPin';
 
 function Contact() {
   return (
-    <header className="new-navbar">
+    <footer className="new-navbar" id="contact">
+
       {/* Restaurant Logo */}
-      <a href="/" className="logo">
+      <Link to="/" className="logo">
         <img src={logo1} alt="Abbaa Gadaa Restaurant Logo" />
 
         <div className="logo-text">
           <h2>ABBAA GADAA</h2>
           <p>RESTAURANT</p>
         </div>
-      </a>
+      </Link>
 
       {/* Quick Links */}
       <div className="new-nav-quick-links">
         <h3>Quick Links</h3>
-             
+
         <nav className="new-nav-links">
-          <a href="/">Home</a>
-          <a href="/menu">Menu</a>
-          <a href="/about">About</a>
-          <a href="/gallery">Gallery</a>
-          <a href="/contact">Contact</a>
-          <a href="/cart">Cart</a>
+          <Link to="/">Home</Link>
+          <Link to="/menu">Menu</Link>
+          <Link to="/about">About</Link>
+          <Link to="/gallery">Gallery</Link>
+          <Link to="/contact">Contact</Link>
+          <Link to="/cart">Cart</Link>
         </nav>
       </div>
 
@@ -49,16 +51,16 @@ function Contact() {
             <span>+251 969 416 675</span>
           </a>
 
-        
-<a
-  href="https://www.google.com/maps/search/?api=1&query=Bulbula%2C%20Oromia%2C%20Ethiopia"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="LocationPinIcon-btn"
->
-  <LocationPinIcon />
-  <span>Bulbula, Oromia, Ethiopia</span>
-</a>
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=Bulbula%2C%20Oromia%2C%20Ethiopia"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="LocationPinIcon-btn"
+          >
+            <LocationPinIcon />
+            <span>Bulbula, Oromia, Ethiopia</span>
+          </a>
+
           <a
             href="mailto:abdisasaba2@gmail.com"
             className="MailIcon-btn"
@@ -71,9 +73,8 @@ function Contact() {
 
       {/* Social Media */}
       <div className="new-nav-follow">
-        
-        
-          <h3>Follow Us</h3>
+        <h3>Follow Us</h3>
+
         <div className="social-icons">
           <a
             href="https://www.facebook.com/profile.php?id=100086257735839"
@@ -114,18 +115,20 @@ function Contact() {
 
         <p>Good Food. Good People. Great Memories.</p>
       </div>
-   <div className="ag-footer-bottom">
+
+      {/* Footer Bottom */}
+      <div className="ag-footer-bottom">
         <div className="ag-footer-ornament">
           ✦ ━ ◆ ━ ✧ ━ ◈ ━ ✦ ━ ◆ ━ ✧ ━ ◈ ━ ✦
         </div>
 
         <p>
           © 2026 <strong>Abbaa Gadaa Restaurant.</strong>
-          {" "}All Rights Reserved.
+          {' '}All Rights Reserved.
         </p>
 
         <p className="ag-footer-credit">
-          Designed & Developed by
+          Designed &amp; Developed by
           <span> Abdisa Siraj Abuni</span>
         </p>
 
@@ -133,7 +136,8 @@ function Contact() {
           Proudly celebrating Oromo culture and Ethiopian hospitality.
         </p>
       </div>
-    </header>
+
+    </footer>
   );
 }
 
